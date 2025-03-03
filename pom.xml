@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.vougue</groupId>
-	<artifactId>tontineApp</artifactId>
+	<artifactId>TontineApp backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Tontine Management System</name>
 	<description>Projekt für die Verwaltung einer Tontine-Anwendung</description>

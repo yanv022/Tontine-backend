@@ -2,6 +2,7 @@ package com.vougue.tontineApp.service;
 
 import com.vougue.tontineApp.model.TontineGroup;
 import com.vougue.tontineApp.model.Member;
+import com.vougue.tontineApp.model.dto.GroupUpdateDTO;
 import com.vougue.tontineApp.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,40 @@ public class TontineService {
         group.setNextPayout(LocalDate.now().plusWeeks(2));
 
         groupRepository.save(group);
+    }
+    public TontineGroup updateGroup(Long groupId, GroupUpdateDTO updateDTO) {
+        TontineGroup existingGroup = groupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Groupe ID " + groupId + " non trouvé"));
+
+        if(updateDTO.getGroupName() != null) {
+            existingGroup.setGroupName(updateDTO.getGroupName());
+        }
+
+        if(updateDTO.getTotalAmount() != null) {
+            existingGroup.setTotalAmount(updateDTO.getTotalAmount());
+        }
+
+        if(updateDTO.getNextPayout() != null) {
+            existingGroup.setNextPayout(updateDTO.getNextPayout());
+        }
+
+        return groupRepository.save(existingGroup);
+    }
+    public TontineGroup fullUpdateGroup(Long groupId, TontineGroup updatedGroup) {
+        TontineGroup existingGroup = groupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Groupe non trouvé"));
+
+        updatedGroup.setId(existingGroup.getId());
+        return groupRepository.save(updatedGroup);
+    }
+
+    public void deleteGroup(Long groupId) {
+        groupRepository.deleteById(groupId);
+    }
+
+    // Méthode pour récupérer un groupe par son ID
+    public TontineGroup getGroupById(Long groupId) {
+        return groupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Groupe ID " + groupId + " non trouvé"));
     }
 }

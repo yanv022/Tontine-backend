@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Data
@@ -24,4 +26,7 @@ public class TontineGroup {
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private List<Member> members;
+
+    // Methode, um eine Gruppe mit ihren Mitgliedern zu finden
+    //@Query("SELECT g FROM TontineGroup g LEFT JOIN FETCH g.members WHERE g.id = :id")
 }
